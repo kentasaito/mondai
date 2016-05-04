@@ -54,7 +54,7 @@ function shutsudai()
 	}
 	else
 	{
-		$('#image').css('display', 'inline').attr('src', vars.site_url + 'mypage/setsumon_image?filename=' + data.setsumons[nanmonme].image);
+		$('#image').css('display', 'inline').attr('src', vars.site_url + 'application/direct/setsumon_image.php?filename=' + data.setsumons[nanmonme].image);
 	}
 	$('#seikaito').css('display', 'none');
 	$('#seikaito').val(data.setsumons[nanmonme].seikaito);
