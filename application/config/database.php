@@ -70,19 +70,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
+$CI =& get_instance();
 $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'mondai',
-	'password' => '',
-	'database' => 'mondai_dev',
+	'hostname' => $CI->config->item('database')['hostname'],
+	'username' => $CI->config->item('database')['username'],
+	'password' => $CI->config->item('database')['password'],
+	'database' => $CI->config->item('database')['database'],
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => FALSE, // (ENVIRONMENT !== 'production'),
+	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',

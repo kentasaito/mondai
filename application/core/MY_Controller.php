@@ -6,11 +6,11 @@ class MY_Controller extends CI_Controller {
 	{
 		parent::__construct();
 		session_save_path (FCPATH.'tmp/session');
+		$this->load->config('application');
 		$this->load->database();
 		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->helper('view');
-		$this->load->config('application');
 		$this->vars = [];
 		if ($this->session->flash === NULL)
 		{

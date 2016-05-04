@@ -25,3 +25,11 @@ $config['restrictions'] = [
 	'1' => [
 	],
 ];
+
+// データベース名
+$config['database'] = [
+	'hostname' => 'localhost',
+	'username' => 'mondai',
+	'password' => '',
+	'database' => 'mondai_dev',
+];
