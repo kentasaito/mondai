@@ -31,5 +31,5 @@ $config['database'] = [
 	'hostname' => 'localhost',
 	'username' => 'mondai',
 	'password' => '',
-	'database' => 'mondai_dev',
+	'database' => 'mondai',
 ];
