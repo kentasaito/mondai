@@ -1,0 +1,11 @@
+{
+	"require": {
+		"codeigniter/framework": "3.0.2",
+		"components/jquery": "1.12.1",
+		"twbs/bootstrap": "v3.3.6",
+	        "michelf/php-markdown": "1.6.0",
+		"phpunit/phpunit": "4.8.24",
+		"kenjis/ci-phpunit-test": "v0.12.0",
+		"piece/stagehand-testrunner": "v4.2.0"
+	}
+}

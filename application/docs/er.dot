@@ -1,0 +1,25 @@
+digraph graph_name {
+	graph [
+		fontname = "Ubuntu",
+		labelloc = "t",
+		label = "ER図",
+	];
+	node [
+		fontname = "Ubuntu",
+		shape = "box",
+	];
+	edge [
+		fontname = "Ubuntu",
+		arrowhead = "crow";
+	];
+
+	"user" [label = "ユーザ"];
+	"kiroku" [label = "記録"];
+	"mondai" [label = "問題"];
+	"setsumon" [label = "設問"];
+
+	"user" -> "kiroku";
+	"user" -> "mondai";
+	"mondai" -> "setsumon";
+	"setsumon" -> "kiroku";
+}

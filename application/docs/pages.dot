@@ -1,0 +1,40 @@
+digraph graph_name {
+	graph [
+		fontname = "Ubuntu",
+		labelloc = "t",
+		label = "ページ遷移",
+	];
+	node [
+		fontname = "Ubuntu",
+		shape = "box",
+	];
+	edge [
+		fontname = "Ubuntu",
+	];
+
+	"nav" [label = "ナビゲーション"];
+	"mypage" [label = "マイページ"];
+	"mypage/kaitosha_ichiran" [label = "解答者一覧"];
+	"mypage/kaitosha" [label = "解答者"];
+	"mypage/shutsudaisha_ichiran" [label = "出題者一覧"];
+	"mypage/shutsudaisha" [label = "出題者"];
+	"mypage/mondai_ichiran" [label = "問題一覧"];
+	"mypage/mondai" [label = "問題"];
+	"mypage/test" [label = "テスト"];
+	"mypage/account" [label = "ユーザ情報"];
+	"mypage/repository" [label = "リポジトリ"];
+
+	"nav" -> "mypage" [label = ""];
+	"nav" -> "mypage/kaitosha_ichiran" [label = ""];
+	"nav" -> "mypage/shutsudaisha_ichiran" [label = ""];
+	"nav" -> "mypage/mondai_ichiran" [label = ""];
+	"nav" -> "mypage/account" [label = ""];
+	"nav" -> "mypage/repository" [label = ""];
+	"mypage/kaitosha_ichiran" -> "mypage/kaitosha" [label = ""];
+	"mypage/shutsudaisha_ichiran" -> "mypage/shutsudaisha" [label = ""];
+	"mypage/mondai_ichiran" -> "mypage/mondai" [label = ""];
+	"mypage/mondai" -> "mypage/test" [label = ""];
+
+	{rank = same; "mypage/shutsudaisha_ichiran"; "mypage/mondai_ichiran"}
+	{rank = same; "mypage/shutsudaisha"; "mypage/mondai"}
+}

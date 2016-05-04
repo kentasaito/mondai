@@ -1,0 +1,150 @@
+-- MySQL dump 10.13  Distrib 5.5.47, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: mondai_dev
+-- ------------------------------------------------------
+-- Server version	5.5.47-0ubuntu0.14.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `kiroku`
+--
+
+DROP TABLE IF EXISTS `kiroku`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kiroku` (
+  `kiroku_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '記録ID',
+  `kaitosha_id` int(11) NOT NULL COMMENT '解答者ID',
+  `setsumon_id` int(11) NOT NULL COMMENT '設問ID',
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'タイムスタンプ',
+  `seikai` tinyint(1) DEFAULT NULL COMMENT '正解',
+  `fuseikai` tinyint(1) DEFAULT NULL COMMENT '不正解',
+  `pass` tinyint(1) DEFAULT NULL COMMENT 'パス',
+  `millisec` int(11) DEFAULT NULL COMMENT 'ミリ秒',
+  `gokaito` varchar(255) DEFAULT NULL COMMENT '誤解答',
+  PRIMARY KEY (`kiroku_id`),
+  KEY `kaitosha` (`kaitosha_id`) COMMENT '解答者',
+  KEY `setsumon` (`setsumon_id`) COMMENT '設問',
+  CONSTRAINT `kiroku_kaitosha` FOREIGN KEY (`kaitosha_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `kiroku_setsumon` FOREIGN KEY (`setsumon_id`) REFERENCES `setsumon` (`setsumon_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='記録';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kiroku`
+--
+-- ORDER BY:  `kiroku_id`
+
+LOCK TABLES `kiroku` WRITE;
+/*!40000 ALTER TABLE `kiroku` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kiroku` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mondai`
+--
+
+DROP TABLE IF EXISTS `mondai`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mondai` (
+  `mondai_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '問題ID',
+  `shutsudaisha_id` int(11) NOT NULL COMMENT '出題者ID',
+  `shutsudaisha_mondai_id` int(11) NOT NULL COMMENT '出題者問題ID',
+  `mondaimei` varchar(255) NOT NULL COMMENT '問題名',
+  PRIMARY KEY (`mondai_id`),
+  UNIQUE KEY `shutsudaisha_mondai` (`shutsudaisha_id`,`shutsudaisha_mondai_id`) COMMENT '出題者問題',
+  KEY `shutsudaisha` (`shutsudaisha_id`) COMMENT '出題者',
+  CONSTRAINT `mondai_shutsudaisha` FOREIGN KEY (`shutsudaisha_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='問題';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mondai`
+--
+-- ORDER BY:  `mondai_id`
+
+LOCK TABLES `mondai` WRITE;
+/*!40000 ALTER TABLE `mondai` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mondai` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `setsumon`
+--
+
+DROP TABLE IF EXISTS `setsumon`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `setsumon` (
+  `setsumon_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '設問ID',
+  `mondai_id` int(11) NOT NULL COMMENT '問題ID',
+  `mondai_setsumon_id` int(11) NOT NULL COMMENT '問題設問ID',
+  `mondaibun` text NOT NULL COMMENT '問題文',
+  `seikaito` varchar(255) NOT NULL COMMENT '正解答',
+  PRIMARY KEY (`setsumon_id`),
+  UNIQUE KEY `mondai_setsumon` (`mondai_id`,`mondai_setsumon_id`) COMMENT '問題設問',
+  KEY `mondai` (`mondai_id`) COMMENT '問題',
+  CONSTRAINT `setsumon_mondai` FOREIGN KEY (`mondai_id`) REFERENCES `mondai` (`mondai_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='設問';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `setsumon`
+--
+-- ORDER BY:  `setsumon_id`
+
+LOCK TABLES `setsumon` WRITE;
+/*!40000 ALTER TABLE `setsumon` DISABLE KEYS */;
+/*!40000 ALTER TABLE `setsumon` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ユーザID',
+  `user_name` varchar(255) NOT NULL COMMENT 'ユーザ名',
+  `login` varchar(255) NOT NULL COMMENT 'ログイン名',
+  `password` varchar(255) NOT NULL COMMENT 'パスワード',
+  `repository` varchar(255) DEFAULT NULL COMMENT 'リポジトリ',
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `login` (`login`),
+  UNIQUE KEY `repository` (`repository`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ユーザ';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+-- ORDER BY:  `user_id`
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-04-29 13:44:56

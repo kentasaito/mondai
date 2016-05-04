@@ -1,0 +1,8 @@
+/application/config/application.php
+/application/logs
+/application/tests/build
+/mondai_data
+/tmp
+/vendor
+
+/composer.lock

@@ -1,0 +1,76 @@
+/* プロパティ */
+.property th {
+	width: 1px;
+	white-space: nowrap;
+}
+
+/* メータ */
+.meter {
+	width: 70px;
+	text-align: center;
+}
+.progress {
+	height: 3px;
+	margin: -3px 0 0 0;
+}
+
+/* 設問画像 */
+#image {
+	display: none;
+	max-width: 640px
+}
+
+/* 見出し */
+h1 {
+  font-size: 24px;
+}
+h2 {
+  font-size: 20px;
+}
+h3 {
+  font-size: 18px;
+}
+
+/* トップページ */
+#logo-top {
+	margin-top:20px;
+	height: 36px;
+	margin-bottom:10px;
+	opacity: 0.8;
+}
+#symbol-top {
+	height: 120px;
+	margin-bottom:20px;
+	opacity: 0.8;
+}
+
+/* ブランド */
+#logo-brand {
+	height: 20px;
+	opacity: 0.6;
+}
+#logo-brand:hover {
+	opacity: 0.8;
+}
+
+/* ブレークポイント */
+@media (min-width: 768px) {
+	.container {
+		width: 750px;
+	}
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/* 印刷 */
+@media print {
+	a[href]:after {
+		content: '' !important;
+	}
+	abbr[title]:after {
+		content: '' !important;
+	}
+}
