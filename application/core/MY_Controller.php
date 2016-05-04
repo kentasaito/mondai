@@ -20,6 +20,11 @@ class MY_Controller extends CI_Controller {
 		{
 			redirect('');
 		}
+		$this->vars['restrictions'] = $this->config->item('restrictions')[$this->session->user === NULL ? -1 : $this->session->user['admin']];
+		if ($this->vars['restrictions'] === NULL)
+		{
+			$this->vars['restrictions'] = [];
+		}
 	}
 
 	// マイページ

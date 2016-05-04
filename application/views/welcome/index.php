@@ -2,9 +2,11 @@
 <img id="logo-top" src="<?php direct('img/mondai.svg'); ?>"><br>
 <img id="symbol-top" src="<?php direct('img/gijineko.svg'); ?>">
 <?php if ( ! in_array('logout_sucseeded', array_column($this->session->flash, 'name'))): ?>
+<?php if ( ! in_array('registration', $vars['restrictions'])): ?>
 <div class="alert alert-info" role="alert">
 初めての人は<a href="<?php href('welcome/registration'); ?>" class="alert-link">ユーザ登録</a>
 </div>
+<?php endif; ?>
 <?php endif; ?>
 <?php load_view('flash'); ?>
 
